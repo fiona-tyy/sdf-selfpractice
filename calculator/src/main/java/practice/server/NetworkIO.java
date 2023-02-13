@@ -17,31 +17,34 @@ public class NetworkIO {
     private OutputStream os;
     private BufferedOutputStream bos;
     private DataOutputStream dos;
-
-
+    
     public NetworkIO(Socket socket) throws IOException{
         is = socket.getInputStream();
         bis = new BufferedInputStream(is);
         dis = new DataInputStream(bis);
+
         os = socket.getOutputStream();
         bos = new BufferedOutputStream(os);
         dos = new DataOutputStream(bos);
-
+        
     }
 
-    public String read() throws IOException{
+    public String readInput() throws IOException{
         return dis.readUTF();
     }
 
-    public void write(String s) throws IOException{
-        dos.writeUTF(s);
+    public void writeOutput(String message) throws IOException{
+        dos.writeUTF(message);
         dos.flush();
     }
 
     public void close() throws IOException{
         dis.close();
+        bis.close();
         is.close();
+
         dos.close();
+        bos.close();
         os.close();
     }
 }
