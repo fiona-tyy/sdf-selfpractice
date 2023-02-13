@@ -2,6 +2,9 @@ package practice;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileManager {
 
@@ -45,8 +48,11 @@ public class FileManager {
 
     // LISTING FILES IN A DIRECTORY
 
-    public void listFilesInDirectory(){
-
+    public Set<String> listFilesInDirectory(String dir){
+        return Stream.of(new File(dir).listFiles())
+                .filter(file -> !file.isDirectory())
+                .map(File::getName)
+                .collect(Collectors.toSet());
     }
     
 }
